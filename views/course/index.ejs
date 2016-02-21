@@ -1,0 +1,35 @@
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#courseTable').DataTable();
+	} );
+</script>
+
+<h3>All Courses</h3>
+<div class="row clearfix">
+	<div class="col-md-12 column">
+		<table id="courseTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Course ID</th>
+					<th>Course Name</th>
+					<th>CAO</th>
+					<th>Institute ID</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<% _.each(courses, function(course) { %>
+				<tr data-id="<%= course.id %>" data-model="course">
+					<td><%= course.c_id %></td>
+					<td><%= course.c_name %></td>
+					<td><%= course.c_cao %></td>
+					<td><%= course.institute_i_id %></td>
+					<td><a class="btn btn-info btn-xs" href="\course\show\<%= course.c_id %>">Show</a></td>
+					<td><a class="btn btn-info btn-xs" href="/course/maintain_occupations/<%= course.c_id %>">Edit</a></td>
+				</tr>
+			<% }) %>
+			</tbody>
+		</table>
+	</div>
+</div>

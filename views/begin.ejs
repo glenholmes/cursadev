@@ -1,0 +1,311 @@
+<!-- begin -->
+<!-- subject preloader -->
+<script>
+	$(document).ready(function(){
+
+		// Grades and Value arrays
+		var gradestext = ["A1", "A2", "B1", "B2", "B3", "C1", "C2", "C3", "D1", "D2", "D3"];
+		var gradesvalue = ["100", "90", "85", "80", "75", "70", "65", "60", "55", "50", "45"];
+		var a = document.getElementById("grade");
+		var b = document.getElementById("grade1");
+		var c = document.getElementById("grade2");
+		var d = document.getElementById("grade3");
+		var e = document.getElementById("grade4");
+		var f = document.getElementById("grade5");
+		var option;
+
+		// load as options for subject selector
+		for (var i=0;i<gradestext.length;i++)
+		{
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			a.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			b.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			c.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			d.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			e.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			f.add(option);
+		}
+
+		// array of subjects
+		var subtext = ["Accounting","Agricultural Economics",
+		"Agricultural Science","Ancient Greek","Applied Mathematics","Arabic",
+		"Art","Biology","Bulgarian","Business","Chemistry","Classical Studies","Construction Studies",
+		"Croatian","Czech","Danish","Design & Communication Graphics","Dutch","Economics",
+		"Engineering","English","Estonian",	"Finnish","French","Geography","German","Hebrew Studies",
+		"History","Home Economics S & S","Hungarian","Irish","Italian","Japanese","Latin","Latvian",
+		"Link Modules","Lithuanian","Mathematics","Modern Greek","Music","Physics","Physics & Chemistry",
+		"Polish","Portuguese","Religious Education","Romanian",	"Russian","Slovakian","Spanish","Swedish",
+		"Technology"];
+		var sa = document.getElementById("sub");
+		var sb = document.getElementById("sub1");
+		var sc = document.getElementById("sub2");
+		var sd = document.getElementById("sub3");
+		var se = document.getElementById("sub4");
+		var sf = document.getElementById("sub5");
+
+		// load subjects as options
+		for (var i=0;i<subtext.length;i++)
+		{
+			option = document.createElement("option");
+			option.text = subtext[i]; option.value = subtext[i];
+			sa.add(option);
+			option = document.createElement("option");
+			option.text = subtext[i]; option.value = subtext[i];
+			sb.add(option);
+			option = document.createElement("option");
+			option.text = subtext[i]; option.value = subtext[i];
+			sc.add(option);
+			option = document.createElement("option");
+			option.text = subtext[i]; option.value = subtext[i];
+			sd.add(option);
+			option = document.createElement("option");
+			option.text = subtext[i]; option.value = subtext[i];
+			se.add(option);
+			option = document.createElement("option");
+			option.text = subtext[i]; option.value = subtext[i];
+			sf.add(option);
+		}
+	});
+</script>
+
+<!-- Warnings -->
+<div id="warningArea"></div>
+
+<form onsubmit="return toRecommend()" action="/recommend/make" role="form" >
+	<!-- Step One - personality -->
+	<div id="stepOne" style="display:block;">
+		<h3>Step 1 of 2 - Your Personality</h3>
+		<p><small>Check all relevant boxes.</small></p>
+		<div class="row">
+			<div class="col-md-4">
+				<label><input type="checkbox" name="riasec_letter" value="R"> I like to work on cars</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="I"> I like to do puzzles</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="A"> I am good at working independently</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="S"> I like to work in teams</label> <br />
+				<label><input type="checkbox" name="riasec_letter" value="E"> I set goals for myself </label><br />
+				<label><input type="checkbox" name="riasec_letter" value="C"> I like to organize things</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="R"> I like to take care of animals</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="I"> I enjoy trying to figure out how things work</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="A"> I like to read about art and music</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="S"> I like to teach or train people</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="E"> I like to try to influence or persuade people </label><br />
+				<label><input type="checkbox" name="riasec_letter" value="C"> I like to have clear instructions to follow </label><br />
+				<label><input type="checkbox" name="riasec_letter" value="R"> I like to build things</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="I"> I like to analyse problems and situations</label><br />
+			</div>
+			<div class="col-md-4">
+				<label><input type="checkbox" name="riasec_letter" value="R"> I like assembling things</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="I"> I like to do experiments</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="A"> I enjoy creative writing </label><br />
+				<label><input type="checkbox" name="riasec_letter" value="S"> I like helping people solve their problems</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="E"> I like selling things</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="C"> I would be happy working in an office everyday</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="R"> I like to cook</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="I"> I enjoy science</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="A"> I am a creative person</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="S"> I am interested in healing people </label><br />
+				<label><input type="checkbox" name="riasec_letter" value="E"> I am quick to take on new responsibilities</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="C"> I pay attention to details</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="A"> I like to play instruments or sing</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="S"> I enjoy learning about other cultures </label><br />
+			</div>
+			<div class="col-md-4">
+				<label><input type="checkbox" name="riasec_letter" value="R"> I am a practical person</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="R"> I like working outdoors</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="I"> I like working with numbers or charts</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="I"> I am good at maths</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="A"> I like acting in plays</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="A"> I like to draw</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="S"> I like to get into discussions about issues</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="S"> I like helping people</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="E"> I would like to start my own business</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="E"> I like to lead</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="C"> I am good at keeping records of my work</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="C"> I would like to work in an office</label><br />		
+				<label><input type="checkbox" name="riasec_letter" value="E"> I like to give speeches</label><br />
+				<label><input type="checkbox" name="riasec_letter" value="C"> I like to do filing or typing</label><br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pull-right">
+					<a href="javascript:void(0)" class="btn btn-success"  onclick="toTwo()">Continue</a>
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Select your leaving certificate subjects and study location -->
+	<div id="stepTwo" style="display:none;">
+		<h3>Step 1 of 2 - CAO and Location </h3>
+		<div class="row">
+			<div class="col-md-6">
+				<label>Expected Leaving Certificate Results</label>
+				<div class="form-inline">
+					<select id="sub" class="form-control" placeholder="subject" name="subject"></select>
+					<select id="grade" class="form-control" placeholder="grade" name="grade"></select>
+					<select class="form-control" placeholder="level" name="level" >
+						<option value="1">Higher</option>
+						<option value="2">Ordinary</option>
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="sub1" class="form-control" placeholder="subject" name="subject"></select>
+					<select id="grade1" class="form-control" placeholder="grade" name="grade"></select>
+					<select class="form-control" placeholder="level" name="level" >
+						<option value="1">Higher</option>
+						<option value="2">Ordinary</option>
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="sub2" class="form-control" placeholder="subject" name="subject"></select>
+					<select id="grade2" class="form-control" placeholder="grade" name="grade"></select>
+					<select class="form-control" placeholder="level" name="level" >
+						<option value="1">Higher</option>
+						<option value="2">Ordinary</option>
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="sub3" class="form-control" placeholder="subject" name="subject"></select>
+					<select id="grade3" class="form-control" placeholder="grade" name="grade"></select>
+					<select class="form-control" placeholder="level" name="level" >
+						<option value="1">Higher</option>
+						<option value="2">Ordinary</option>
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="sub4" class="form-control" placeholder="subject" name="subject"></select>
+					<select id="grade4" class="form-control" placeholder="grade" name="grade"></select>
+					<select class="form-control" placeholder="level" name="level" >
+						<option value="1">Higher</option>
+						<option value="2">Ordinary</option>
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="sub5" class="form-control" placeholder="subject" name="subject"></select>
+					<select id="grade5" class="form-control" placeholder="grade" name="grade"></select>
+					<select class="form-control" placeholder="level" name="level" >
+						<option value="1">Higher</option>
+						<option value="2">Ordinary</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col col-md-8">
+						<label>Where would you like to Study?</label>
+						<select id="u_county" class="form-control" name="u_county">
+							<option value="Carlow">Carlow</option>
+							<option value="Clare">Clare</option>
+							<option value="Cork">Cork</option>
+							<option value="Donegal">Donegal</option>
+							<option value="Dublin">Dublin</option>
+							<option value="Galway">Galway</option>
+							<option value="Kerry">Kerry</option>
+							<option value="Kildare">Kildare</option>
+							<option value="Longford">Longford</option>
+							<option value="Louth">Louth</option>
+							<option value="Sligo">Sligo</option>
+							<option value="Tipperary">Tipperary</option>
+							<option value="Waterford">Waterford</option>
+							<option value="Westmeath">Westmeath</option>
+						</select><br />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pull-right">
+					<input type="submit" class="btn btn-success" value="Get Recommendations" />
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<script type="text/javascript">
+	// move to the next section
+	function toTwo () {
+		// ensure some input boxes are checked
+		var inputs = document.getElementsByName("riasec_letter");
+		var total = 0;
+		for(var i = 0; i < inputs.length; i++) {
+		     if (inputs[i].type === "checkbox" && inputs[i].checked){
+		     	total += 1;
+		     }
+		}
+		// if no boxes checked, display alert
+		if(total < 5){
+			document.getElementById('warningArea').innerHTML = "<div class='row'><div class='col-md-12'><div class='alert alert-dismissable alert-warning'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><strong>Warning!</strong> You've gotta give me a little more feedback than that, try picking at least 5.</div></div></div>";
+			var scroll_to = document.getElementById('warningArea');
+			scroll_to.scrollIntoView();
+
+		} else {
+			document.getElementById('warningArea').innerHTML = "";
+			document.getElementById('stepOne').style.display = 'none';
+			document.getElementById('stepTwo').style.display = 'block';
+			var scroll_to = document.getElementById('warningArea');
+			scroll_to.scrollIntoView();
+		}		
+	}
+	// // move to the next section
+	// function toThree () {
+	// 	// ensure some input boxes are checked
+	// 	var inputs = document.getElementsByName("sport_hobby");
+	// 	var total = 0;
+	// 	for(var i = 0; i < inputs.length; i++) {
+	// 	     if (inputs[i].type === "checkbox" && inputs[i].checked){
+	// 	     	total += 1;
+	// 	     }
+	// 	}
+	// 	// if no boxes checked, display alert
+	// 	if(total < 2){
+	// 		document.getElementById('warningArea').innerHTML = "<div class='row'><div class='col-md-12'><div class='alert alert-dismissable alert-warning'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><strong>Warning!</strong> Go on and pick a few hobbies outta that.</div></div></div>";
+	// 		var scroll_to = document.getElementById('warningArea');
+	// 		scroll_to.scrollIntoView();
+
+	// 	} else {
+	// 		document.getElementById('warningArea').innerHTML = "";
+	// 		document.getElementById('stepTwo').style.display = 'none';
+	// 		document.getElementById('stepThree').style.display = 'block';
+	// 		var scroll_to = document.getElementById('warningArea');
+	// 		scroll_to.scrollIntoView();
+	// 	}
+	// }
+	// move to the recommender
+	function toRecommend () {
+		// checks no subjects are the same
+		var subjects = new Array();
+		subjects.push(document.getElementById("sub").value);
+		subjects.push(document.getElementById("sub1").value);
+		subjects.push(document.getElementById("sub2").value);
+		subjects.push(document.getElementById("sub3").value);
+		subjects.push(document.getElementById("sub4").value);
+		subjects.push(document.getElementById("sub5").value);
+
+		for (var i = 0; i < subjects.length; i++) {
+			for (var j = 0; j < subjects.length; j++) {
+				if((subjects[i] == subjects[j]) && i != j){
+					document.getElementById('warningArea').innerHTML = "<div class='row'><div class='col-md-12'><div class='alert alert-dismissable alert-warning'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><strong>Warning!</strong> If only you could take the same subject twice.</div></div></div>";
+					var scroll_to = document.getElementById('warningArea');
+					scroll_to.scrollIntoView();
+					return false;
+				} 
+			}
+		}
+	}	
+</script>

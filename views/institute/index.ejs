@@ -1,0 +1,33 @@
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#instituteTable').DataTable();
+	} );
+</script>
+
+<h3>All Institutes</h3>
+<div class="row clearfix">
+	<div class="col-md-12 column">
+		<table id="instituteTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Institute ID</th>
+					<th>Institute Name</th>
+					<th>Telephone</th>
+					<th>County</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<% _.each(institutes, function(institute) { %>
+				<tr data-id="<%= institute.id %>" data-model="institute">
+					<td><%= institute.i_id %></td>
+					<td><%= institute.i_name %></td>
+					<td><%= institute.i_telephone %></td>
+					<td><%= institute.i_county %></td>
+					<td><a class="btn btn-info btn-xs" href="\institute\show\<%= institute.i_id %>">Show</a></td>
+				</tr>
+			<% }) %>
+			</tbody>
+		</table>
+	</div>
+</div>

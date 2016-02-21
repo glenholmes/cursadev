@@ -1,0 +1,41 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	<% _.each(courseData.soccupations, function(soccupation) { %>
+		document.getElementById('<%= soccupation.occupation_o_id %>').checked = true;
+	<% }) %>
+});
+</script>
+<form action="/course/update_occupations" role="form">
+	<input type="hidden" name="c_id" value="<%= courseData.course.c_id %>" /> 
+	<h3>All Occupations <i class="pull-right"><input type="submit" value="Submit" class="btn btn-success"></i></h3><br/>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<table id="occupationTable" class="table table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Level</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<% _.each(courseData.occupations, function(occupation) { %>
+					<tr>
+						<td><%= occupation.o_id %></td>
+						<td><%= occupation.o_name %></td>
+						<td><%= occupation.o_level %></td>
+						<td><input id="<%= occupation.o_id %>" type="checkbox" name="occupation" value="<%= occupation.o_id %>" /></td>
+					</tr>
+				<% }) %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#occupationTable').DataTable();
+	} );
+</script>

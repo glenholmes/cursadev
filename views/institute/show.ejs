@@ -1,0 +1,13 @@
+<h3><%= institute.i_name %></h3>
+<hr />
+<div class="row">
+	<div class="col col-md-6">
+		<label><%= institute.i_id %></label><br/>
+		<label><a href="http://<%= institute.i_www %>">Website</a></label><br/>
+		<label><%= institute.i_email %></label><br/>
+		<label><%= institute.i_telephone %></label><br/>
+		<label><%= institute.i_county %></label><br/>
+		<a href="/institute/maintain_amenities/<%= institute.i_id %>" class="btn btn-info">Amenity Maintenance</a><br/>
+		<a href="/institute/maintain_hobbies/<%= institute.i_id %>" class="btn btn-info">Hobbies Maintenance</a><br/>		
+	</div>
+</div>

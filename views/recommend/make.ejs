@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-md-12">
+	<h3>Results and Recommendations</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-7">
+		<h4><!-- <i class="fa fa-user"></i>&nbsp; -->Your personality...</h4>
+		<p>A big part of selecting a third level course should be whether it suits your personality. The course we select should bring us on a path to where we end up in roles that fulfill our lives.</p>
+		<p>You are <strong><%= riasecs[0].r_name %></strong>. You fall into a category of <%= riasecs[0].r_description %> You are also <strong><%= riasecs[1].r_name %></strong>. Meaning you have similar traits to <%= riasecs[1].r_description %></p>
+		<h4><!-- <i class="fa fa-star"></i>&nbsp; -->Your Leaving Certificate Points...</h4>
+		<p>Great job with your leaving certificate. You have <strong><%= caoscore %></strong> points to play with. It is important to remember, the better you do in your leaving certificate, the greater the chance you have of matching that perfect course. Based on your points alone, you have <strong><%= courseNum %></strong> third level courses available to you nationwide. In <strong><%= county %></strong>, where you would like to study, there are <strong><%= courseNum1 %></strong> courses within your points range.</p>
+		<h4><!-- <i class="fa fa-briefcase"></i>&nbsp; -->Your occupation opportunities...</h4>
+		<p>Often enough prospective students choose courses based on what their friends are doing or what they are interested in for the now. However, using your personality as defined above, it is possible to associate an individual with occupations in which they will enjoy and excel. Here is a list of a few career paths that might be good for you;<strong>
+		<% _.each(occupations, function(occupation) { %><%= occupation.o_name %>, <% }) %> </strong>do you find any of them interesting?</p>
+	</div>
+	<div class="col-md-5">
+		<h4><!-- <i class="fa fa-briefcase"></i>&nbsp; -->Your top courses...</h4>
+			<% var courseI = 0; %>
+			<% _.each(courses, function(course) { %>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<strong>Option <%= courseI += 1 %> - <%= course.id %></strong>
+					<a href="/course/show/<%= course.id %>" class="btn btn-success btn-xs pull-right" >View Course Details</a>
+				</div>
+				<div class="panel-body">
+					This course is <strong><%= course.cname %></strong> at <strong><%= course.iname %></strong>.
+					Last years CAO Points requirement was <strong><%= course.cao %></strong>.
+				</div>
+			</div>
+			<% }) %>
+	</div>
+</div>

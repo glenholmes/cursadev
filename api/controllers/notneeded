@@ -1,0 +1,189 @@
+/**
+ * RecommendController
+ *
+ * @description :: Server-side logic for managing recommends
+ * @help        :: See http://links.sailsjs.org/docs/controllers
+ */
+
+
+var request = require('request');
+var fs = require('fs');
+
+module.exports = {
+
+
+	// generate distanceMatrix
+	// ddgen : function (req, res, next) {
+	// 	// distance calculator using googleAPI
+
+	// 	var counties = ["Carlow","Cavan","Clare","Cork","Donegal","Dublin",
+	// 		"Galway","Kerry","Kildare","Kilkenny","Laois","Leitrim",
+	// 		"Limerick","Longford","Louth","Mayo","Meath","Monaghan",
+	// 		"Offaly","Roscommon","Sligo","Tipperary","Waterford","Westmeath",
+	// 		"Wexford", "Wicklow"];
+
+	// 	var fullDistMat =  new Array();
+
+	// 	var i, j;
+
+	// 	for (i = 0; i < counties.length; i++) {
+	// 		for (j = 0; j < counties.length; j++) {
+	// 			if (counties[i] != counties[j]) {
+	// 				countyDist = ""+ counties[i] + "," + counties[j] + "\n";
+	// 				fs.appendFile("countyMatrix1.txt", countyDist, function (err) {});	
+	// 			}			
+	// 		};
+	// 	};
+
+		
+	// 	res.redirect("/");
+	// },
+
+	// clean data and create database insert
+	make : function (req, res, next) {
+		// display what was entered by user
+		console.log(req.params.all());
+
+		// load javascript variables with params
+		var riasecs = req.param('riasec_letter') || -1;
+		var subjects = req.param('subject') || -1;
+		var grades = req.param('grade') || -1;
+		var levels = req.param('level') || -1;
+		var county = req.param('u_county') || -1;
+
+		// Simple error check against -1
+		if (riasecs == -1 || subjects == -1 || grades == -1 || levels == -1 || county == -1) {
+			res.serverError("ERR_CODE_RECC001 - Occurred " + new Date().toLocaleString());			
+		} else {
+			// display javascript variables
+			// console.log(riasecs);
+			// console.log(hobbies);
+			// console.log(subjects);
+			// console.log(grades);
+			// console.log(levels);
+			// console.log(county);
+			// console.log(amenities);
+
+			// riasec counter
+			var riasecResult = occuranceCounter(riasecs);
+
+			// // User Riasec Insert
+			// for (var i = 0; i < riasecResult.length; i++) {
+			// 	User.query("INSERT INTO user_riasec ('"+i_id+"','"+riasecResult[i]+"');",
+			// 		function updatedRiasecs (err) {
+			// 		if (err) {
+			// 			console.log(err);
+			// 			res.serverError("ERR_CODE_REC002 - Occurred " + new Date().toLocaleString());
+			// 		};
+			// 	});
+			// }
+
+			// display riasec count
+			console.log(riasecResult);
+
+			// // User Hobbies Insert
+			// for (var i = 0; i < hobbies.length; i++) {
+			// 	User.query("INSERT INTO user_hobby ('"+i_id+"','"+hobbies[i]+"');",
+			// 		function updatedHobbies (err) {
+			// 		if (err) {
+			// 			console.log(err);
+			// 			res.serverError("ERR_CODE_REC002 - Occurred " + new Date().toLocaleString());
+			// 		};
+			// 	});
+			// }
+
+			// calculate CAO points
+			var caoBeforeBonus = eval(grades.join('+'));
+
+			// display caoBeforeBonus
+			// console.log(caoBeforeBonus);
+
+			// check if higher maths is taken
+			var caoAfterBonus;
+			var mathIndex = subjects.indexOf("Mathematics");
+			if(mathIndex == -1 || levels[mathIndex] == 2) {
+				// console.log(levels[mathIndex]);
+				caoAfterBonus = caoBeforeBonus;
+			} else {
+				// console.log(levels[mathIndex]);
+				caoAfterBonus = caoBeforeBonus + 20;
+			}
+
+			// display caoBeforeBonus
+			// console.log(caoAfterBonus);
+
+			// count numberr of ord subjects
+			var ordCount;
+			ordCount = 0;
+			for (var i = 0; i < levels.length; i++) {
+				if(levels[i] == 2) ordCount += 1;
+			};
+
+			// find number of higher subjects taken
+			var hiCount = 6 - ordCount;
+
+			// display count
+			// console.log(ordCount);
+
+			// caoTotal finale
+			var caoTotal;
+			caoTotal = caoAfterBonus - (ordCount * 40 );
+
+			// display caoTotal
+			console.log("\n\n#### CAO Total #### " + caoTotal + " #####\n\n");
+
+			// User.create({u_county : req.param('u_county'), u_higher : hiCount, u_cao : caoTotal}, function createUser (err, user) {
+			// 	if(err){
+			// 		res.serverError("ERR_CODE_RECC101 - Occurred " + new Date().toLocaleString());		
+			// 	}
+
+			// 	console.log(user);
+			// })
+
+
+			User.query("select * from RIASEC where R_ID = '"+riasecResult[0]+"' or R_ID = '"+riasecResult[1]+"';", function returnedRiasecs(err, riasecs){
+				if(err){
+			// 		console.log(err);
+					res.serverError("ERR_CODE_RECC102 - Occurred " + new Date().toLocaleString());
+				}
+				if(!riasecs){
+					res.serverError("ERR_CODE_RECC103 - Occurred " + new Date().toLocaleString());
+					return;
+				}
+				console.log(riasecs);
+			});
+			
+			// redirect
+			res.redirect("/");
+		}
+	},
+
+	report : function (req, res) {
+		
+	}
+};
+
+// function to count occurances and provide two most occurring values
+function occuranceCounter(arr) {
+    var a = [], b = [], c = [], prev;
+    // sort array
+    arr.sort();
+    for ( var i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== prev ) {
+            a.push(arr[i]);
+            b.push(1);
+        } else {
+            b[b.length-1]++;
+        }
+        prev = arr[i];
+    }
+    // calculate two most pccuring values
+    var posMax = b.indexOf(Math.max.apply(Math, b));
+    c.push(a[posMax]);
+    b[posMax] = 0;
+    posMax = b.indexOf(Math.max.apply(Math, b));
+    c.push(a[posMax]);
+
+    return c;
+}
+

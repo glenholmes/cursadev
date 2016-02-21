@@ -1,0 +1,14 @@
+<h3><%= course.c_name %></h3>
+<hr />
+<div class="row">
+	<div class="col col-md-6">
+		<label><%= course.c_id %></label><br/>
+		<label><a href="http://<%= course.c_www %>">Website</a></label><br/>
+		<label><%= course.c_desc %></label><br/>
+		<label><%= course.c_type %></label><br/>
+		<label><%= course.c_cao %></label><br/>
+		<label><%= course.c_minhigher %></label><br/>
+		<label><%= course.institute_i_id %></label><br/>
+		<a href="/course/maintain_occupations/<%= course.c_id %>" class="btn btn-info">Occupation Maintenance</a><br/>
+	</div>
+</div>
